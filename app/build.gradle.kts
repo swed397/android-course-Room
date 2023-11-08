@@ -17,6 +17,15 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true"
+                )
+            }
+        }
     }
 
     buildTypes {
@@ -55,4 +64,9 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:2.48.1")
 
     implementation("androidx.activity:activity-ktx:1.8.0")
+
+    implementation("androidx.room:room-runtime:2.6.0")
+    annotationProcessor("androidx.room:room-compiler:2.6.0")
+    kapt("androidx.room:room-compiler:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
 }
