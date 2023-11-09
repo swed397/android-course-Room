@@ -10,6 +10,6 @@ data class FilmEntity(
     val title: String,
     val year: Int,
     val genreId: Long,
-    val info: String?,
-    val rate: Int?
+    val info: String? = null,
+    val rate: Double? = null
 )

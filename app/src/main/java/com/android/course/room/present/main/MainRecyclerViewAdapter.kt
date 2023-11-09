@@ -1,5 +1,6 @@
 package com.android.course.room.present.main
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,11 @@ class MainRecyclerViewAdapter : RecyclerView.Adapter<MainRecyclerViewAdapter.Mai
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bind(position)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData() {
+        notifyDataSetChanged()
     }
 
     inner class MainViewHolder(item: View) : RecyclerView.ViewHolder(item) {

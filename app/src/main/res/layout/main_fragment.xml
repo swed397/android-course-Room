@@ -13,4 +13,9 @@
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/main_recycler_view_item" />
+
+    <ProgressBar
+        android:id="@+id/main_fragment_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>
