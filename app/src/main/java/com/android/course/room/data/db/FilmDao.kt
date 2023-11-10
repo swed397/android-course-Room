@@ -26,4 +26,10 @@ interface FilmDao {
 
     @Insert
     suspend fun insertFilms(entity: FilmEntity)
+
+    @Query("select * from films where id = :id")
+    suspend fun getFilmById(id: Long): FilmEntity
+
+    @Query("select * from genres where id = :id")
+    suspend fun getGenreById(id: Long): GenreEntity
 }

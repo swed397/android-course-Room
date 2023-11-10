@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.course.room.R
 import com.android.course.room.domain.PreviewFilmInfo
 
-class MainRecyclerViewAdapter : RecyclerView.Adapter<MainRecyclerViewAdapter.MainViewHolder>() {
+class MainRecyclerViewAdapter(
+    private val onClickItem: (id: Long) -> Unit
+) : RecyclerView.Adapter<MainRecyclerViewAdapter.MainViewHolder>() {
 
     var itemList: List<PreviewFilmInfo> = emptyList()
 
@@ -34,6 +36,10 @@ class MainRecyclerViewAdapter : RecyclerView.Adapter<MainRecyclerViewAdapter.Mai
     inner class MainViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val titleTextView: TextView by lazy { item.findViewById(R.id.main_recycler_item_title) }
         private val genreTextView: TextView by lazy { item.findViewById(R.id.main_recycler_item_genre) }
+
+        init {
+            item.setOnClickListener { onClickItem.invoke(itemList[adapterPosition].id) }
+        }
 
         fun bind(position: Int) {
             titleTextView.text = itemList[position].title

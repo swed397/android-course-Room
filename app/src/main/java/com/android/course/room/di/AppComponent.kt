@@ -1,5 +1,6 @@
 package com.android.course.room.di
 
+import com.android.course.room.present.film_info.FilmInfoFragment
 import com.android.course.room.present.main.MainFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -8,5 +9,6 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
 
-    fun inject(mainFragment: MainFragment)
+    fun injectMainFragment(mainFragment: MainFragment)
+    fun injectFilmInfoFragment(filmInfoFragment: FilmInfoFragment)
 }

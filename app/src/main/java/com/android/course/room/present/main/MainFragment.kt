@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.course.room.App
 import com.android.course.room.R
 import com.android.course.room.databinding.MainFragmentBinding
+import com.android.course.room.present.film_info.FilmInfoFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -35,7 +37,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        (requireContext().applicationContext as App).appComponent.inject(this)
+        (requireContext().applicationContext as App).appComponent.injectMainFragment(this)
         binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -68,12 +70,16 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 adapter.setData()
             }
         }
-
     }
 
     private fun createAdapter() {
-        adapter = MainRecyclerViewAdapter()
+        adapter = MainRecyclerViewAdapter(::startFilmFragment)
         binding.mainRecyclerView.adapter = adapter
+    }
 
+    private fun startFilmFragment(id: Long) {
+        parentFragmentManager.commit {
+            add(R.id.main_fragment_conteiner_view, FilmInfoFragment.newInstance(id))
+        }
     }
 }

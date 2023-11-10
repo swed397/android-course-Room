@@ -1,7 +1,9 @@
 package com.android.course.room.data.repo
 
 import com.android.course.room.data.db.FilmDao
+import com.android.course.room.domain.FilmInfo
 import com.android.course.room.domain.PreviewFilmInfo
+import com.android.course.room.toDto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -17,11 +19,14 @@ class FilmsDbRepo @Inject constructor(private val dbDao: FilmDao) : Closeable {
 
     suspend fun getFilmsPreviewList(): Deferred<List<PreviewFilmInfo>> = scopeIO.async {
         dbDao.getAllFilmsAndGenres()
-            .map { PreviewFilmInfo(title = it.film.title, genre = it.genreEntity.name) }
+            .map { it.toDto() }
+    }
+
+    suspend fun getFilmInfoById(id: Long): Deferred<FilmInfo> = scopeIO.async {
+        dbDao.getFilmById(id).let { it.toDto(dbDao.getGenreById(it.genreId).name) }
     }
 
     override fun close() {
         scopeIO.cancel()
     }
-
 }

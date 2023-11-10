@@ -6,5 +6,5 @@ data class FilmInfo(
     val year: Int,
     val authors: String,
     val info: String,
-    val rate: Int
+    val rate: Double
 )
