@@ -1,4 +1,4 @@
-package com.android.course.room.present.film_info
+package com.android.course.room.present.info
 
 import com.android.course.room.domain.FilmInfo
 

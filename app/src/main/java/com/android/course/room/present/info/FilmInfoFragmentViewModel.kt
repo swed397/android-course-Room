@@ -1,4 +1,4 @@
-package com.android.course.room.present.film_info
+package com.android.course.room.present.info
 
 import com.android.course.room.data.repo.FilmsDbRepo
 import com.android.course.room.present.BaseViewModel
@@ -16,11 +16,11 @@ class FilmInfoFragmentViewModel @Inject constructor(private val filmsDbRepo: Fil
         get() = _filmPreviewStateFlow
 
     fun onRefresh(filmId: Long) {
-        scopeMain.launch {
+        scopeIO.launch {
             try {
                 _filmPreviewStateFlow.emit(FilmInfoFragmentUiState.OnLoading)
                 val deferredResultList = filmsDbRepo.getFilmInfoById(filmId)
-                _filmPreviewStateFlow.emit(FilmInfoFragmentUiState.OnSuccess(deferredResultList.await()))
+                _filmPreviewStateFlow.emit(FilmInfoFragmentUiState.OnSuccess(deferredResultList))
             } catch (e: RuntimeException) {
                 _filmPreviewStateFlow.emit(FilmInfoFragmentUiState.OnError(e))
             }

@@ -9,11 +9,10 @@ import kotlinx.coroutines.cancel
 
 abstract class BaseViewModel(private val filmsDbRepo: FilmsDbRepo) : ViewModel() {
 
-    val scopeMain = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    val scopeIO = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     override fun onCleared() {
         super.onCleared()
-        scopeMain.cancel()
-        filmsDbRepo.close()
+        scopeIO.cancel()
     }
 }

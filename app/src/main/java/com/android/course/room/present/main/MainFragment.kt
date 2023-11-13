@@ -18,7 +18,8 @@ import androidx.lifecycle.lifecycleScope
 import com.android.course.room.App
 import com.android.course.room.R
 import com.android.course.room.databinding.MainFragmentBinding
-import com.android.course.room.present.film_info.FilmInfoFragment
+import com.android.course.room.present.add.AddFilmFragment
+import com.android.course.room.present.info.FilmInfoFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -44,6 +45,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         progressBar = binding.mainFragmentProgressBar
+        startFilmAddFragment()
         createAdapter()
         viewModel.onRefresh()
 
@@ -80,6 +82,16 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun startFilmFragment(id: Long) {
         parentFragmentManager.commit {
             add(R.id.main_fragment_conteiner_view, FilmInfoFragment.newInstance(id))
+            addToBackStack(this@MainFragment::class.simpleName)
+        }
+    }
+
+    private fun startFilmAddFragment() {
+        binding.addButton.setOnClickListener {
+            parentFragmentManager.commit {
+                add(R.id.main_fragment_conteiner_view, AddFilmFragment.newInstance())
+                addToBackStack(this@MainFragment::class.simpleName)
+            }
         }
     }
 }

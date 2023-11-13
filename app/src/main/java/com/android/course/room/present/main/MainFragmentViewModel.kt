@@ -16,11 +16,11 @@ class MainFragmentViewModel @Inject constructor(private val filmsDbRepo: FilmsDb
         get() = _filmPreviewStateFlow
 
     fun onRefresh() {
-        scopeMain.launch {
+        scopeIO.launch {
             try {
                 _filmPreviewStateFlow.emit(MainFragmentUiState.OnLoading)
                 val deferredResultList = filmsDbRepo.getFilmsPreviewList()
-                _filmPreviewStateFlow.emit(MainFragmentUiState.OnSuccess(deferredResultList.await()))
+                _filmPreviewStateFlow.emit(MainFragmentUiState.OnSuccess(deferredResultList))
             } catch (e: RuntimeException) {
                 _filmPreviewStateFlow.emit(MainFragmentUiState.OnError(e))
             }

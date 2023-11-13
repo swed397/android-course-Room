@@ -2,7 +2,8 @@ package com.android.course.room.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.android.course.room.present.film_info.FilmInfoFragmentViewModel
+import com.android.course.room.present.add.AddFilmFragmentViewModel
+import com.android.course.room.present.info.FilmInfoFragmentViewModel
 import com.android.course.room.present.main.MainFragmentViewModel
 import dagger.Binds
 import dagger.Module
@@ -23,4 +24,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FilmInfoFragmentViewModel::class)
     abstract fun filmInfoFragmentViewModel(viewModel: FilmInfoFragmentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddFilmFragmentViewModel::class)
+    abstract fun addNewFilmFragmentViewModel(viewModel: AddFilmFragmentViewModel): ViewModel
 }
