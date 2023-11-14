@@ -9,4 +9,8 @@ class AddFilmFragmentViewModel @Inject constructor(private val filmsDbRepo: Film
     BaseViewModel(filmsDbRepo) {
 
     suspend fun getAllGenres(): List<String> = scopeIO.async { filmsDbRepo.getAllGenres() }.await()
+
+    suspend fun save() {
+        //ToDo
+    }
 }
